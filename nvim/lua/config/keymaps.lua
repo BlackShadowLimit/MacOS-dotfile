@@ -18,10 +18,6 @@ map("i", "<C-l>", "<Right>")
 -- Exit insert mode
 map("i", "<C-e>", "<ESC>")
 
--- NvimTree
-map("n", "<leader>e", "<CMD>NvimTreeToggle<CR>")
-map("n", "<leader>t", "<CMD>NvimTreeFocus<CR>")
-
 -- New window
 map("n", "<leader>h", "<CMD>vsplit<CR>")
 map("n", "<leader>v", "<CMD>split<CR>")
@@ -38,23 +34,12 @@ map("n", "<C-Right>", "<C-w>>")
 map("n", "<C-Up>", "<C-w>+")
 map("n", "<C-Down>", "<C-w>-")
 
--- Telescope
-map("n", "<leader>ff", "<CMD>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd"})
-map("n", "<leader>fg", "<CMD>Telescope live_grep<cr>", { desc = "Fuzzy find recent files"})
-map("n", "<leader>of", "<CMD>OpenFolder<cr>", {desc = "Go through another folder"})
-map("n", "<leader>fb", "<CMD>Telescope buffer<cr>", { desc = "Find string in cwd"})
-map("n", "<leader>fs", "<CMD>Telescope git_status<cr>", { desc = "Find string under cursor in cwd"})
-map("n", "<leader>fc", "<CMD>Telescope git commits<cr>", { desc = "Find todos"})
-
 -- Setting save
 map("n", "<C-s>", "<CMD>w<CR>")
 map("n", "<leader>w", "<CMD>w<CR>")
+
 -- Setting undo
 map("n", "<C-z>", "<CMD>u<CR>")
-
--- Setting navigation between tree and window
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-l>", "<C-w>l")
 
 -- Setting Latex view
 map("n", "<leader>lc", ":VimtexCompile<CR>", { noremap = true, silent = true })

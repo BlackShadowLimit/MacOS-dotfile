@@ -15,12 +15,15 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.conceallevel = 2
 
-require("lazy").setup({ import = "developer.plugins" }, {
-  checker = {
-    enabled = true,
-    notify = false,
-  },
-  change_detection = {
-    notify = false,
-  },
-})
+require("lazy").setup(
+  { import = "plugins" },
+  {
+    checker = {
+      enabled = true,
+      notify = false,
+    },
+    change_detection = {
+      notify = false,
+    },
+  }
+)
