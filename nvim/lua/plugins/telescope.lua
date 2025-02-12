@@ -5,12 +5,13 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-project.nvim",
-      "nvim-tree/nvim-web-devicons", -- Ensure this is installed
+      "nvim-tree/nvim-web-devicons",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")
-      local devicons = require("nvim-web-devicons") -- For file icons
+      local fb_actions = require("telescope._extensions.file_browser.actions")
 
       telescope.setup({
         defaults = {
@@ -19,53 +20,66 @@ return {
             preview_cutoff = 6,
             width = 0.8,
             height = 0.9,
-            preview_height = 0.6,
-            -- Remove results_height as it is not supported by the vertical layout strategy
           },
           mappings = {
             i = {
               ["<C-n>"] = actions.move_selection_next,
               ["<C-p>"] = actions.move_selection_previous,
               ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-              ["<C-r>"] = require("telescope._extensions.file_browser.actions").rename, -- Add rename keybinding here
+              ["<C-r>"] = fb_actions.rename,
             },
           },
         },
         extensions = {
           file_browser = {
             hijack_netrw = true,
+            hidden = true, -- 顯示 dotfiles
             mappings = {
               ["i"] = {
-                ["<C-d>"] = require("telescope._extensions.file_browser.actions").remove,
-                ["<C-n>"] = require("telescope._extensions.file_browser.actions").create,
-                ["<C-r>"] = require("telescope._extensions.file_browser.actions").rename, -- Add rename keybinding here as well
+                ["<C-d>"] = fb_actions.remove,
+                ["<C-n>"] = fb_actions.create,
+                ["<C-r>"] = fb_actions.rename,
               },
             },
-            -- Customize the file display format to remove permissions and size
-            display = function(entry)
-              local filename = entry.name
-              local filetype = vim.fn.fnamemodify(filename, ":e") -- Get the file extension as filetype
-              local icon = devicons.get_icon(filename, filetype) or "" -- Get file icon using nvim-web-devicons
-              local last_modified = os.date("%Y-%m-%d", vim.fn.getftime(entry.path)) -- Get last modified date
-
-              -- Only display the file icon, filename, and last modified date, remove permissions and size
-              return string.format("%s %-40s %s", icon, filename, last_modified)
-            end,
           },
           project = {
             base_dirs = { "~/projects" },
             hidden_files = true,
+          },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({})
           },
         },
       })
 
       telescope.load_extension("file_browser")
       telescope.load_extension("project")
+      telescope.load_extension("ui-select")
 
+      -- 設定自動變更 `cwd` 的 Autocmd
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "*",
+        callback = function()
+          local bufname = vim.api.nvim_buf_get_name(0) -- 獲取當前打開的檔案路徑
+          if bufname ~= "" then
+            local dir = vim.fn.fnamemodify(bufname, ":h") -- 獲取該檔案的目錄
+            vim.cmd("cd " .. vim.fn.fnameescape(dir)) -- 變更工作目錄
+          end
+        end,
+      })
+
+      -- 設定快捷鍵
       vim.api.nvim_set_keymap(
         "n",
         "<leader>e",
         ":Telescope file_browser<CR>",
+        { noremap = true, silent = true }
+      )
+
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>s",
+        ":Telescope grep_string<CR>",
         { noremap = true, silent = true }
       )
     end,

@@ -8,6 +8,10 @@ return {
           path = "/Users/arthur/Library/Mobile Documents/iCloud~md~obsidian/Documents/Shadow Base/",
         },
       },
+	  templates = {
+		  folder = "Template"
+	  }
     })
+  vim.keymap.set("n", "<leader>gf", ":ObsidianFollowLink<CR>", opts)
   end
 }

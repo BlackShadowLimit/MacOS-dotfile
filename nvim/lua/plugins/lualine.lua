@@ -3,8 +3,9 @@ return {
   config = function()
     require('lualine').setup({
       options = {
+		theme = "ayu",
         icons_enabled = true,
-        component_separators = '|',  -- 修正拼寫錯誤
+        component_separators = '|',
         section_separators = '',
       },
       sections = {

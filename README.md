@@ -3,7 +3,6 @@
 This is my configuration of MacOS. I customize lots of tools for developing. Below are the introduction of every tools. All of these are open source which means you can use it without paying.
 
 ## Table of Contents
-
 - [borders](#borders)
 - [btop](#btop)
 - [htop](#htop)

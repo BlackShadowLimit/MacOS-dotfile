@@ -23,10 +23,10 @@ map("n", "<leader>h", "<CMD>vsplit<CR>")
 map("n", "<leader>v", "<CMD>split<CR>")
 
 -- Window navigation
-map("n", "<C-S-h>", "<C-w>h")
-map("n", "<C-S-l>", "<C-w>l")
-map("n", "<C-S-k>", "<C-w>k")
-map("n", "<C-S-j>", "<C-w>j")
+map("n", "<S-h>", "<C-w>h")
+map("n", "<S-l>", "<C-w>l")
+map("n", "<S-k>", "<C-w>k")
+map("n", "<S-j>", "<C-w>j")
 
 -- Resize Windows
 map("n", "<C-Left>", "<C-w><")

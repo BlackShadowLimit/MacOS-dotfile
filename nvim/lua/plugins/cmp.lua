@@ -9,6 +9,7 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
 	  "hrsh7th/cmp-omni",
+	  "render-markdown"
     },
     config = function()
       local cmp = require("cmp")
@@ -31,6 +32,21 @@ return {
 		  { name = "path" },
 		  { name = "vimtex"}
         }),
+      })
+
+	  cmp.setup.cmdline(":", {
+         mapping = cmp.mapping.preset.cmdline(),
+         sources = {
+         { name = "path" },
+         { name = "cmdline" },
+        },
+      })
+
+	  cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = "buffer" },
+        },
       })
     end,
   },
